@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <h1>Upload file baru</h1>
+  <p>Pilih PR yang akan diupload, lalu pilih file PDF untuk PR, kemudian buat set halaman. Tolong membuat set halaman yang sudah terurut. Misalkan ada set [(B3, 3), (A1, 5)], maka nomor B3 berada di range halaman 1~3 dan nomor A1 berada di range halaman 4~8 di file yang diupload. <b>PS: UNTUK NOMOR, DAHULUKAN ABJAD, BARU NOMOR SOAL, DAN JANGAN PAKAI SPASI, CONTOH YANG BENAR A5, BUKAN 5A</b></p>
+  <form method="post" enctype="multipart/form-data">
+      <fieldset>
+        <label for="folder">PR</label>
+        <select name="folder" id="folder">
+          <option value="custom" selected>Custom</option>
+          {% for i in folders %}
+          <option value="{{i}}">{{i}}</option>
+          {% endfor %}
+        </select>
+        <div id="folder-custom">
+          <label for="folder-name">Nama PR</label>
+          <input type="text" name="folder-custom" id="folder-name">
+        </div>
+      </fieldset>
+      <br />
+      <fieldset id="pageset">
+          <label for="file">File</label>
+          <input type="file" name="file" id="file"><br /><br />
+          <label for="pageset">Set Halaman</label>
+          <button type="button" id="pageset-add-btn">Tambah Set</button><br />
+      </fieldset><br />
+      <input type="submit" value="Upload" id="upload-btn">
+  </form>
+  
+  <script>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        alert("{{ message }}")
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  </script>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <h1>Download file</h1>
+  {% if isEmpty %}
+    <p>Tidak ada PR yang bisa didownload</p>
+  {% else %}
+    <form name="download_form" method="post" action="/download/" enctype="multipart/form-data" onsubmit="return OnSubmitForm();">
+        <fieldset>
+          <label for="folder">PR</label>
+          <select name="folder" id="folder">
+            {% for i in folders %}
+            <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+          </select>
+        </fieldset>
+        <br />
+        <input type="submit" value="Download">
+    </form>
+  {% endif %}
+  <script>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        alert("{{ message }}")
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+    function OnSubmitForm(){
+      document.download_form.action = encodeURI('/download/'+(+new Date).toString(36))
+    }
+  </script>
+{% endblock %}

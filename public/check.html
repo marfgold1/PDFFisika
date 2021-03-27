@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <h1>Periksa file</h1>
+  {% if isEmpty %}
+    <p>Tidak ada PR yang bisa diperiksa</p>
+  {% else %}
+    <form name="download_form" method="post" enctype="multipart/form-data">
+        <fieldset>
+          <label for="folder">PR</label>
+          <select name="folder" id="folder">
+            {% for i in folders %}
+            <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+          </select>
+        </fieldset>
+        <br />
+        <input type="submit" value="Periksa">
+    </form>
+  {% endif %}
+  {% if folder_data is not none %}
+    <hr />
+    <h2>Data untuk {{ folder_name }} ({{ folder_data|length }} nomor)</h2>
+    {% if folder_data|length == 0 %}
+      <p>Tidak ada data yang bisa ditampilkan</p>
+    {% else %}
+      <ul>
+      {% for k, v in folder_data.items() %}
+        <li>
+          <b>{{ k }}</b>
+          <br />Range: {{ v['range'] }}
+          <br />Filename: {{ v['filename'] }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endif %}
+{% endblock %}
