@@ -25,11 +25,11 @@
       <p>Tidak ada data yang bisa ditampilkan</p>
     {% else %}
       <ul>
-      {% for k, v in folder_data.items() %}
+      {% for data in folder_data %}
         <li>
-          <b>{{ k }}</b>
-          <br />Range: {{ v['range'] }}
-          <br />Filename: {{ v['filename'] }}</li>
+          <b>{{ data[0] }}</b>
+          <br />Range: {{ data[1]["range"] }}
+          <br />Filename: {{ data[1]["filename"] }}</li>
       {% endfor %}
       </ul>
     {% endif %}

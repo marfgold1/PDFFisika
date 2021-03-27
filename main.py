@@ -147,8 +147,7 @@ def check_pengumpulan():
     if not (folder in db.keys()):
       flash("Folder doesn't exist")
       return redirect(request.url)
-    data = db[folder]
-    print(data)
+    data = sorted(db[folder].items())
   return render_template('check.html', isEmpty=(len(db.keys())==0), folders=db.keys(), folder_data=data, folder_name=folder)
 
 if __name__ == "__main__":
